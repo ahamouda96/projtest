@@ -6,8 +6,15 @@
             <div class="panel panel-default" style="margin: 0; border-radius: 0;">
             <div class="panel-heading">
                 <h3 class="panel-title">
+                      
+                        
+                      <img src="/uploads/images/{{$post->user->profile_image}}" alt="user image" style="width:40px; height:40px;border-radius: 50%;">
+                      <a href="{{route('front.profile', ['id'=>$post->user->id])}}" style="text-decoration: none; color: #666">
+                        <span style="margin-left: 5px; font-weight: 600">{{ $post->user->name }}</span> <br>
+                      </a> 
+                        <span style="margin-left: 45px;">{{$post->updated_at->diffForHumans() }}</span> 
+                    </h3> 
                 <h3 class="panel-title">
-                    {{ $post->title }},
                     @if ($post->friends()->count() > 0)
                         <small>
                             with
@@ -18,7 +25,28 @@
                     @endif
                     
                     <div class="pull-right">
-                        <a href="{{ url('/posts') }}">Return back</a>
+                      
+
+                      <div class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                      <span class="caret"></span>
+                      </a>
+                      <ul class="dropdown-menu" role="menu">
+                      <li>
+                      <a href="{{ route('post.edit', [$post->id]) }}">Edit Post</a>
+                      </li>
+                      <li>
+                      <a href="#" onclick="document.getElementById('delete').submit()">Delete Post</a>
+                      {!! Form::open(['method' => 'DELETE', 'id' => 'delete', 'route' => ['post.delete', $post->id]]) !!}
+                      {!! Form::close() !!}
+                      </li>
+                      </ul>
+                      </div>
+
+
+
+
+
                     </div>
                 </h3>
               </div>
@@ -36,7 +64,9 @@
                     @endif
                 @endif
                 <br />
+                @if($post->category)
                 <a href="{{ route('category.showAll', [$post->category->name]) }}" class="badge">{{ $post->category->name }}</a>
+                @endif
               </div>
               <div class="panel-footer" data-postid="{{ $post->id }}">
               @if (Auth::check())
@@ -48,15 +78,15 @@
                           @if ($like->post_id == $post->id)
                               @if ($like->like)
                                   <a href="#" class="btn btn-link like active-like">Like</a>
-                                  <a href="#" class="btn btn-link like">Dislike</a>
+                                  
                               @else
                                   <a href="#" class="btn btn-link like">Like</a>
-                                  <a href="#" class="btn btn-link like active-like">Dislike</a>
+                                  
                               @endif
                               @break
                           @elseif ($i == $c)
                               <a href="#" class="btn btn-link like">Like</a>
-                              <a href="#" class="btn btn-link like">Dislike</a>
+                              
                           @endif
                           @php
                               $c++;
@@ -64,7 +94,7 @@
                       @endforeach
                   @else
                       <a href="{{ url('login') }}" class="btn btn-link">Like</a>
-                      <a href="{{ url('login') }}" class="btn btn-link">Dislike</a>
+                      
                   @endif
                   <a href="#" class="btn btn-link">Comment</a>
               </div>

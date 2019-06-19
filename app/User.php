@@ -40,6 +40,24 @@ class User extends Authenticatable implements JWTSubject
         return $this->belongsTo('App\Role');
     }
 
+    //start follower
+     public function followes() {
+        return $this->hasMany('App\Follower');
+    }
+
+    public function addFollower(User $user)
+    {
+        if($this->followes()->where('friend_id', $user->id)->first()){
+            return null;
+        }
+        return $this->friend()->save(
+            new Friend([
+                'friend_id' => $user->id,
+            ])
+        );
+    }
+    // end followe
+
     public function posts(){
         return $this->hasMany('App\Post');
     }

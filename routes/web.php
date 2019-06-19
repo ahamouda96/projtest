@@ -15,11 +15,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('profile', 'UserController@profile');
+Route::get('editprofile', 'UserController@profile');
 //Route::post('profile', 'UserController@update_avatar');
 
-Route::get('profile', 'ProfileController@index')->name('profile');
-Route::post('profile', 'ProfileController@updateProfile')->name('profile.update');
+Route::get('editprofile', 'ProfileController@index')->name('profile');
+Route::post('editprofile', 'ProfileController@updateProfile')->name('profile.update');
 Route::post('profile/{profileId}/follow', 'ProfileController@followUser')->name('user.follow');
 Route::post('/{profileId}/unfollow', 'ProfileController@unFollowUser')->name('user.unfollow');
 
@@ -30,11 +30,12 @@ Route::group(['middleware'=>'admin:User'], function(){
 
     
 });
-
+ 
 
 Route::group(['middleware'=>'admin:Admin,Talent'], function(){
 //admin and talent
 Route::get('/home', 'HomeController@index')->name('home');
+
 Route::resource('/posts','PostsController');
 Route::resource('/categories', 'CategoriesController');
 Route::get('/post/category/{name}', 'CategoriesController@showAll')->name('category.showAll');
@@ -49,11 +50,17 @@ Route::post('/comment', 'commentsController@index');
 Route::get('/users', 'HomeController@listUser');
 Route::get('/users/{id}', 'HomeController@showUser')->name('user.show');
 
-
 Route::post('/friend', 'FriendController@index');
 Route::get('/friend/{id}', 'FriendController@showFriends')->name('friend.show');
 Route::post('/friend/remove', 'FriendController@remove');
 Route::post('/request', 'FriendController@request');
+
+Route::get('/profile/{id}', 'HomeController@profile')->name('front.profile');
+// followe folling routes
+Route::get('follower/{id}', 'UserController@viewProfile');
+
+Route::get('/test', 'UserController@index');
+Route::get('/test/profile', 'UserController@show');
 
 });
 

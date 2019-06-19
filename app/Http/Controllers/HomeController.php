@@ -34,4 +34,11 @@ class HomeController extends Controller
         $user = User::find($id);
         return view('user.show')->withUser($user);
     }
+
+    public function profile($id)
+    {
+        $user = User::findOrFail($id);
+        return view('profile.index', compact('user'));
+    }
+
 }

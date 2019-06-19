@@ -153,7 +153,8 @@
                             </a>  
 
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="{{ url('/profile') }}"><i class="fa fa-btn fa-user"></i>Profile</a></li>
+                                <li><a href="{{ route('front.profile', ['id'=>auth()->user()->id]) }}"><i class="fa fa-btn fa-user"></i>Profile</a></li>
+                                <li><a href="{{ url('/editprofile') }}"><i class="fa fa-btn fa-user"></i>Edit Profile</a></li>
                                 <li><a href="{{ url('/posts') }}"><i class="fa fa-btn fa-user"></i>Posts</a></li>
                                 <li><a href="{{ url('/users') }}"><i class="fa fa-btn fa-user"></i>Users</a></li>
                                 <li><a href="{{ route('logout') }}" onclick="event.preventDefault();

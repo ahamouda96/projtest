@@ -143,7 +143,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <li class="nav-item">
                 <router-link to="/profile" class="nav-link">
                     <i class="nav-icon fas fa-user orange"></i>
-                    <a href="{{ url('/profile') }}"><i class="fa fa-btn fa-user"></i>Profile</a>
+                    <a href="{{ route('front.profile', ['id'=>auth()->user()->id]) }}"><i class="fa fa-btn fa-user"></i>Profile</a>
                 </router-link>
          </li>
 

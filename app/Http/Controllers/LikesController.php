@@ -17,12 +17,19 @@ class LikesController extends Controller
             $like->post_id = $request->post_id;
             $like->like = $request->isLike;
             $like->save();
+        }if($likes != null){
+             $likes->delete();
         }
         else {
             $likes->like = $request->isLike;
             $likes->save();
         }
-        return ['status' => 'Ok this works fine'];
-    } 
+        return [
+            'post_id' => $request->post_id
+        ];
+    }
+
+
+    
 }
 

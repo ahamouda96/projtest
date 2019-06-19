@@ -22,8 +22,12 @@ class PostsController extends Controller
     {
         $posts = Post::all()->sortByDesc('id');
         $categories = Category::all();
-        return view('posts.index')->withPosts($posts)->withCategories($categories);        
+        return view('posts.index')->withPosts($posts)->withCategories($categories);
     }
+
+    
+
+    
 
     /**
      * Show the form for creating a new resource.
@@ -103,12 +107,12 @@ class PostsController extends Controller
     public function edit($id)
     {
         $post = Post::findOrFail($id);
-        if (Auth::user()->id != $post->user_id) {
+        if (Auth::user()->id != $post->user_id || $post == null) {
             abort(404);
         }
-        if ($post == null) {
-            abort(404);
-        }
+        // if ($post == null) {
+        //     abort(404);
+        // }
         $categories = Category::all();
         return view('posts.edit')->withPost($post)->withCategories($categories);
     }
